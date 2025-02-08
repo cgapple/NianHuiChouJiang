@@ -1,0 +1,446 @@
+/* 全局重置样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 使用更合理的盒模型 */
+}
+
+/* 页面背景样式 */
+body {
+    font-family: 'Microsoft YaHei', sans-serif; /* 使用微软雅黑字体 */
+    background: linear-gradient(135deg, 
+        #1a237e 0%, 
+        #1c2987 25%,
+        #1e2f90 50%,
+        #20357a 75%,
+        #223b84 100%
+    );
+    min-height: 100vh; /* 确保最小高度占满视窗 */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Flex布局居中内容 */
+    position: relative;
+    overflow: hidden; /* 防止旋转动画溢出 */
+}
+
+/* 烟花画布样式 */
+#fireworks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* 添加装饰性花纹背景 */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: 
+        /* 网格花纹 - 增强对比度 */
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        /* 对角线花纹 - 更明显 */
+        linear-gradient(45deg, transparent 95%, rgba(255, 255, 255, 0.1) 96%, rgba(255, 255, 255, 0.08) 97%),
+        linear-gradient(-45deg, transparent 95%, rgba(255, 255, 255, 0.1) 96%, rgba(255, 255, 255, 0.08) 97%),
+        /* 圆形装饰 - 增加大小和亮度 */
+        radial-gradient(circle at 50% 25%, rgba(255, 255, 255, 0.1) 1%, rgba(255, 255, 255, 0.05) 3%, transparent 6%),
+        radial-gradient(circle at 25% 50%, rgba(255, 255, 255, 0.1) 1%, rgba(255, 255, 255, 0.05) 3%, transparent 6%),
+        radial-gradient(circle at 75% 50%, rgba(255, 255, 255, 0.1) 1%, rgba(255, 255, 255, 0.05) 3%, transparent 6%),
+        radial-gradient(circle at 50% 75%, rgba(255, 255, 255, 0.1) 1%, rgba(255, 255, 255, 0.05) 3%, transparent 6%);
+    background-size: 
+        30px 30px,  /* 缩小网格大小 */
+        30px 30px,
+        80px 80px,  /* 调整对角线间距 */
+        80px 80px,
+        160px 160px,
+        160px 160px,
+        160px 160px,
+        160px 160px;
+    opacity: 0.9;  /* 增加整体可见度 */
+    z-index: 1;
+}
+
+/* 旋转背景动画元素 */
+body::before {
+    content: '';
+    position: absolute;
+    width: 200vw;
+    height: 200vh;
+    top: -50vh;
+    left: -50vw;
+    /* 创建径向渐变的红色光晕 */
+    background: 
+        /* 旋转的光晕 - 更明显的渐变 */
+        radial-gradient(
+            circle at center,
+            transparent 0%,
+            rgba(255, 0, 0, 0.05) 30%,
+            rgba(255, 0, 0, 0.08) 45%,
+            transparent 70%
+        ),
+        /* 装饰性花纹 - 增加对比度 */
+        repeating-conic-gradient(
+            from 0deg,
+            rgba(255, 255, 255, 0) 0deg,
+            rgba(255, 255, 255, 0.05) 10deg,
+            rgba(255, 255, 255, 0) 20deg
+        );
+    opacity: 0.7;  /* 增加透明度以突出花纹 */
+    animation: rotate 30s linear infinite; /* 应用旋转动画 */
+    z-index: 0;
+}
+
+/* 主容器样式 */
+.container {
+    text-align: center;
+    padding: min(5vw, 2rem); /* 响应式内边距 */
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: min(5vw, 20px);
+    /* 多层阴影效果 */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3),
+                inset 0 2px 3px rgba(255, 255, 255, 0.9),
+                0 0 30px rgba(255, 0, 0, 0.1);
+    width: min(90vw, 800px); /* 响应式宽度 */
+    margin: 2vh auto;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transform-style: preserve-3d; /* 启用3D变换 */
+    perspective: 1000px;
+}
+
+/* 容器装饰花纹 */
+.container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: 
+        /* 边框光晕 */
+        linear-gradient(45deg, rgba(255, 61, 0, 0.1), rgba(255, 255, 255, 0.1), rgba(255, 61, 0, 0.1)),
+        /* 角落装饰 */
+        radial-gradient(circle at 0 0, transparent 70%, rgba(255, 61, 0, 0.1) 100%),
+        radial-gradient(circle at 100% 0, transparent 70%, rgba(255, 61, 0, 0.1) 100%),
+        radial-gradient(circle at 0 100%, transparent 70%, rgba(255, 61, 0, 0.1) 100%),
+        radial-gradient(circle at 100% 100%, transparent 70%, rgba(255, 61, 0, 0.1) 100%);
+    border-radius: inherit;
+    z-index: -1;
+    animation: borderGlow 6s linear infinite;
+}
+
+/* 标题样式 */
+h1 {
+    /* 渐变文字效果 */
+    background: linear-gradient(45deg, #ff3d00, #d32f2f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    letter-spacing: 2px;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    position: relative;
+}
+
+/* 标题装饰线条 */
+h1::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 3px;
+    background: #ff3d00;
+    left: 50%;
+    bottom: -15px;
+    transform: translateX(-50%) rotate(45deg); /* 旋转的装饰线 */
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    /* 渐变装饰线 */
+    background: linear-gradient(90deg, transparent, #ff3d00, transparent);
+}
+
+/* 抽奖区域容器 */
+.lottery-box {
+    margin: 2rem 0;
+}
+
+/* 数字显示样式 */
+.number-display {
+    font-size: min(20vw, 8rem); /* 响应式字体大小 */
+    font-weight: bold;
+    /* 渐变文字效果 */
+    background: linear-gradient(45deg, #ff3d00 30%, #d32f2f 70%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: min(5vw, 2rem) 0;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    text-shadow: 0 0 30px rgba(255, 61, 0, 0.3);
+    position: relative;
+    transform-style: preserve-3d;
+    animation: breathe 2s ease-in-out infinite; /* 呼吸发光动画 */
+}
+
+/* 数字光晕效果 */
+.number-display::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: radial-gradient(circle at center, 
+        rgba(211, 47, 47, 0.1) 0%,
+        transparent 70%);
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(5px);
+}
+
+/* 数字激活状态 */
+.number-display.active {
+    animation: none;
+    transform: scale(1.3) translateZ(50px) rotateY(10deg); /* 3D变换效果 */
+    /* 双层发光效果 */
+    text-shadow: 
+        0 0 50px rgba(255, 61, 0, 0.5),
+        0 0 100px rgba(255, 61, 0, 0.3);
+}
+
+/* 按钮组样式 */
+.button-group {
+    display: flex;
+    gap: min(3vw, 1rem);
+    justify-content: center;
+    margin: min(5vw, 2rem) 0;
+}
+
+/* 按钮基础样式 */
+.btn {
+    padding: min(3vw, 1rem) min(6vw, 2rem);
+    font-size: min(4vw, 1.2rem);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(45deg, #ff3d00 30%, #d32f2f 70%);
+    color: white;
+    min-width: min(40vw, 150px);
+    /* 按钮阴影效果 */
+    box-shadow: 0 5px 20px rgba(255, 61, 0, 0.3),
+                inset 0 -2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transform: translateY(0);
+}
+
+/* 按钮流光效果 */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+/* 按钮悬停时流光动画 */
+.btn:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+/* 禁用状态按钮样式 */
+.btn:disabled {
+    background: linear-gradient(45deg, #9e9e9e, #757575);
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* 按钮悬停效果 */
+.btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 61, 0, 0.4),
+                inset 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 按钮点击效果 */
+.btn:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+/* 按钮点击波纹效果 */
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease-out, height 0.6s ease-out;
+}
+
+.btn:active::after {
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+}
+
+/* 历史记录区域样式 */
+.history-box {
+    margin-top: min(5vw, 2rem);
+    padding: min(3vw, 1rem);
+    /* 半透明渐变背景 */
+    background: linear-gradient(135deg,
+        rgba(26, 35, 126, 0.1) 0%,
+        rgba(26, 35, 126, 0.05) 100%);
+    backdrop-filter: blur(10px);
+    border-radius: min(3vw, 10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1),
+                inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+/* 历史记录标题样式 */
+.history-box h2 {
+    background: linear-gradient(45deg, #1e88e5, #1565c0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    position: relative;
+}
+
+/* 历史记录标题装饰线 */
+.history-box h2::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #1e88e5, transparent);
+}
+
+/* 历史记录列表样式 */
+#history-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* 历史记录项目样式 */
+#history-list li {
+    background: linear-gradient(45deg, #1e88e5, #1565c0);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: min(3.5vw, 1rem);
+    box-shadow: 0 3px 15px rgba(30, 136, 229, 0.3),
+                inset 0 -2px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+/* 历史记录项目流光效果 */
+#history-list li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+/* 历史记录项目悬停动画 */
+#history-list li:hover::before {
+    left: 100%;
+}
+
+#history-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(30, 136, 229, 0.4),
+                inset 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 最新中奖记录突出显示 */
+#history-list li:first-child {
+    background: linear-gradient(45deg, #2196f3, #1e88e5);
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(33, 150, 243, 0.4);
+}
+
+/* 动画关键帧定义 */
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes breathe {
+    0%, 100% { text-shadow: 0 0 30px rgba(255, 61, 0, 0.3); }
+    50% { text-shadow: 0 0 50px rgba(255, 61, 0, 0.5); }
+}
+
+@keyframes borderGlow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+/* 添加新的动画 */
+@keyframes patternFloat {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 30px 30px;  /* 匹配新的网格大小 */
+    }
+}
+
+/* 应用动画到背景花纹 */
+body::after {
+    animation: patternFloat 15s linear infinite;  /* 稍微加快速度 */
+} 

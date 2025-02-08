@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"> <!-- 设置字符编码为UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 设置响应式视口 -->
+    <title>年会抽奖系统</title> <!-- 页面标题 -->
+    <link rel="stylesheet" href="styles.css"> <!-- 引入CSS样式文件 -->
+</head>
+<body>
+    <canvas id="fireworks"></canvas> <!-- 添加烟花画布 -->
+    <div class="container"> <!-- 主容器 -->
+        <h1>年会抽奖</h1> <!-- 页面标题 -->
+        
+        <div class="lottery-box"> <!-- 抽奖区域容器 -->
+            <div id="current-number" class="number-display">?</div> <!-- 当前抽奖数字显示区域 -->
+            
+            <div class="button-group"> <!-- 按钮组容器 -->
+                <button id="startBtn" class="btn">开始抽奖</button> <!-- 开始按钮 -->
+                <button id="stopBtn" class="btn" disabled>停止</button> <!-- 停止按钮（初始禁用） -->
+            </div>
+        </div>
+
+        <div class="history-box"> <!-- 历史记录区域 -->
+            <h2>最近中奖记录</h2> <!-- 历史记录标题 -->
+            <ul id="history-list"></ul> <!-- 历史记录列表容器 -->
+        </div>
+    </div>
+    <script src="fireworks.js"></script> <!-- 添加烟花效果脚本 -->
+    <script src="script.js"></script> <!-- 引入JavaScript文件 -->
+</body>
+</html> 
